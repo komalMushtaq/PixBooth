@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixBooth.pk - Premium Photo Booth Experiences in Pakistan</title>
+    
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ANIMATE CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        /* HERO SECTION WITH ADVANCED DESIGN */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(38, 70, 83, 0.9) 0%, rgba(26, 26, 46, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .btn-hero-primary {
+            background: linear-gradient(135deg, #e76f51, #f4a261);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .btn-hero-secondary {
+            background: transparent;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .btn-hero-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(231, 111, 81, 0.3);
+        }
+        
+        .btn-hero-secondary:hover {
+            background: white;
+            color: #264653;
+            transform: translateY(-5px);
+        }
+        
+        /* FEATURES SECTION */
+        .features-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #264653, #2a9d8f);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #2a9d8f;
+            margin-bottom: 20px;
+            height: 80px;
+            width: 80px;
+            background: rgba(42, 157, 143, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        
+        /* POPULAR BOOTHS SECTION */
+        .popular-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #264653;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .booths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+        }
+        
+        .booth-card-home {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .booth-card-home:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .booth-image-home {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .booth-image-home img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .booth-card-home:hover .booth-image-home img {
+            transform: scale(1.1);
+        }
+        
+        .booth-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(38, 70, 83, 0.9));
+            color: white;
+            padding: 25px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .booth-card-home:hover .booth-overlay {
+            transform: translateY(0);
+        }
+        
+        /* PACKAGES HIGHLIGHT */
+        .packages-highlight {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #264653, #1a1a2e);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .packages-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            opacity: 0.1;
+        }
+        
+        .package-card-highlight {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .package-card-highlight:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* GALLERY PREVIEW */
+        .gallery-preview {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .gallery-grid-home {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item-home {
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item-home img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item-home:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay-home {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(38, 70, 83, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item-home:hover .gallery-overlay-home {
+            opacity: 1;
+        }
+        
+        /* TESTIMONIALS */
+        .testimonials-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 5rem;
+            color: #2a9d8f;
+            opacity: 0.2;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .client-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #2a9d8f;
+        }
+        
+        /* STATS SECTION */
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item-home {
+            padding: 30px;
+        }
+        
+        .stat-number-home {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+            display: block;
+        }
+        
+        .stat-label-home {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* CTA SECTION */
+        .cta-section-home {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #e76f51, #f4a261);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section-home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            opacity: 0.1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        /* ANIMATIONS */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .booths-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.3rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .booths-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0;
+                min-height: auto;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-hero-primary,
+            .btn-hero-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .booths-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .cta-title {
+                font-size: 2.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .package-card-highlight,
+            .testimonial-card {
+                padding: 25px;
+            }
+            
+            .stat-number-home {
+                font-size: 2.8rem;
+            }
+            
+            .cta-title {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="booths.html"><i class="fas fa-camera"></i> Booths</a>
+                
+                <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
+                <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="quote.html" class="nav-cta"><i class="fas fa-quote-right"></i> Get Quote</a>
+            </div>
+            
+            <button class="hamburger" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title animate__animated animate__fadeInDown">
+                Capture Every Moment<br>With PixBooth
+            </h1>
+            <p class="hero-subtitle animate__animated animate__fadeInUp">
+                Pakistan's premier photo booth experience provider. From weddings to corporate events, we bring professional, fun, and memorable photo experiences to your celebrations across 8 major cities.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="quote.html" class="btn-hero-primary animate__animated animate__fadeInLeft">
+                    <i class="fas fa-calendar-check"></i> Book Your Booth
+                </a>
+                <a href="gallery.html" class="btn-hero-secondary animate__animated animate__fadeInRight">
+                    <i class="fas fa-play-circle"></i> View Our Gallery
+                </a>
+            </div>
+            
+            <div class="stats-grid" style="margin-top: 80px;">
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Events</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Booth Types</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Satisfaction</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Cities</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose PixBooth?</h2>
+                <p>We're not just another photo booth company. Here's what sets us apart:</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Instant Prints</h3>
+                    <p>High-quality 4x6 glossy prints in seconds with custom designs</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Social Sharing</h3>
+                    <p>Instant digital copies and social media integration</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Professional Setup</h3>
+                    <p>Complete installation by trained technicians</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer service and technical support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULAR BOOTHS SECTION -->
+    <section class="popular-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Most Popular Booths</h2>
+                <p>Choose from our state-of-the-art photo booth collection</p>
+            </div>
+            
+            <div class="booths-grid">
+                <!-- Mirror Booth -->
+                <div class="booth-card-home">
+                    <div class="booth-image-home">
+                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Mirror Photo Booth">
+                    </div>
+                    <div class="booth-content" style="padding: 25px;">
+                        <h3>Mirror Photo Booth</h3>
+                        <p>Interactive touchscreen experience with animations</p>
+                        <div class="booth-price" style="color: #2a9d8f; font-weight: 600; margin: 15px 0;">PKR 45,000/day</div>
+                        <a href="booths.html" class="btn" style="padding: 10px 25px;">View Details</a>
+                    </div>
+                    <div class="booth-overlay">
+                        <h4 style="color: white; margin-bottom: 10px;">Perfect For:</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Weddings, Corporate Events, Luxury Parties</p>
+                    </div>
+                </div>
+                
+                <!-- 360° Booth -->
+                <div class="booth-card-home">
+                    <div class="booth-image-home">
+                        <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="360° Video Booth">
+                    </div>
+                    <div class="booth-content" style="padding: 25px;">
+                        <h3>360° Video Booth</h3>
+                        <p>Capture dynamic spinning slow-motion videos</p>
+                        <div class="booth-price" style="color: #2a9d8f; font-weight: 600; margin: 15px 0;">PKR 55,000/day</div>
+                        <a href="booths.html" class="btn" style="padding: 10px 25px;">View Details</a>
+                    </div>
+                    <div class="booth-overlay">
+                        <h4 style="color: white; margin-bottom: 10px;">Perfect For:</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Birthdays, Engagements, Social Events</p>
+                    </div>
+                </div>
+                
+                <!-- Classic Booth -->
+                <div class="booth-card-home">
+                    <div class="booth-image-home">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Classic Enclosed Booth">
+                    </div>
+                    <div class="booth-content" style="padding: 25px;">
+                        <h3>Classic Enclosed Booth</h3>
+                        <p>Traditional booth with privacy and professional setup</p>
+                        <div class="booth-price" style="color: #2a9d8f; font-weight: 600; margin: 15px 0;">PKR 25,000/day</div>
+                        <a href="booths.html" class="btn" style="padding: 10px 25px;">View Details</a>
+                    </div>
+                    <div class="booth-overlay">
+                        <h4 style="color: white; margin-bottom: 10px;">Perfect For:</h4>
+                        <p style="color: rgba(255,255,255,0.9);">Formal Events, Weddings, Corporate Functions</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="booths.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-eye"></i> View All 8 Booth Types
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES HIGHLIGHT -->
+    <section class="packages-highlight">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">Popular Packages</h2>
+                <p style="color: rgba(255,255,255,0.9);">Choose the perfect package for your event</p>
+            </div>
+            
+            <div class="booths-grid">
+                <div class="package-card-highlight">
+                    <h3 style="color: white; margin-bottom: 15px;">Standard Package</h3>
+                    <div class="booth-price" style="color: #f4a261; font-size: 1.8rem; font-weight: 700; margin: 20px 0;">PKR 45,000</div>
+                    <ul style="color: rgba(255,255,255,0.9); list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> 4 Hours of Service</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Choice of 2 Booths</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Unlimited Prints</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> 2 Professional Attendants</li>
+                    </ul>
+                    <a href="packages.html" class="btn" style="background: white; color: #264653; margin-top: 25px; display: inline-block;">View Package</a>
+                </div>
+                
+                <div class="package-card-highlight">
+                    <h3 style="color: white; margin-bottom: 15px;">Premium Package</h3>
+                    <div class="booth-price" style="color: #f4a261; font-size: 1.8rem; font-weight: 700; margin: 20px 0;">PKR 65,000</div>
+                    <ul style="color: rgba(255,255,255,0.9); list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> 6 Hours of Service</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Choice of 3 Booths</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> 4x6 & 5x7 Prints</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Social Media Station</li>
+                    </ul>
+                    <a href="packages.html" class="btn" style="background: white; color: #264653; margin-top: 25px; display: inline-block;">View Package</a>
+                </div>
+                
+                <div class="package-card-highlight">
+                    <h3 style="color: white; margin-bottom: 15px;">Custom Package</h3>
+                    <div class="booth-price" style="color: #f4a261; font-size: 1.8rem; font-weight: 700; margin: 20px 0;">Tailored Price</div>
+                    <ul style="color: rgba(255,255,255,0.9); list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Fully Customizable</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Mix & Match Services</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Personal Consultation</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #2a9d8f; margin-right: 10px;"></i> Flexible Duration</li>
+                    </ul>
+                    <a href="contact.html" class="btn" style="background: white; color: #264653; margin-top: 25px; display: inline-block;">Get Custom Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY PREVIEW -->
+    <section class="gallery-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2>Moments Captured</h2>
+                <p>Browse through our gallery of happy memories</p>
+            </div>
+            
+            <div class="gallery-grid-home">
+                <div class="gallery-item-home">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Wedding Photo">
+                    <div class="gallery-overlay-home">
+                        <i class="fas fa-search-plus" style="color: white; font-size: 2rem;"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item-home">
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Corporate Event">
+                    <div class="gallery-overlay-home">
+                        <i class="fas fa-search-plus" style="color: white; font-size: 2rem;"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item-home">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Birthday Party">
+                    <div class="gallery-overlay-home">
+                        <i class="fas fa-search-plus" style="color: white; font-size: 2rem;"></i>
+                    </div>
+                </div>
+                
+                <div class="gallery-item-home">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Engagement">
+                    <div class="gallery-overlay-home">
+                        <i class="fas fa-search-plus" style="color: white; font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="gallery.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-images"></i> View Full Gallery
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Clients Say</h2>
+                <p>Don't just take our word for it - hear from our happy customers</p>
+            </div>
+            
+            <div class="booths-grid">
+                <div class="testimonial-card">
+                    <p style="color: #555; line-height: 1.7; font-size: 1.1rem;">
+                        "The 360° booth was the highlight of our wedding! Guests are still talking about the amazing videos. Professional service from start to finish."
+                    </p>
+                    <div class="client-info">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="client-avatar">
+                        <div>
+                            <h4 style="color: #264653; margin-bottom: 5px;">Sana Ahmed</h4>
+                            <p style="color: #666; font-size: 0.9rem;">Lahore Wedding, December 2023</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p style="color: #555; line-height: 1.7; font-size: 1.1rem;">
+                        "Our corporate event was transformed by the mirror booth. The branding integration was perfect, and employees loved the experience. Highly recommended!"
+                    </p>
+                    <div class="client-info">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="client-avatar">
+                        <div>
+                            <h4 style="color: #264653; margin-bottom: 5px;">Ahmed Raza</h4>
+                            <p style="color: #666; font-size: 0.9rem;">Corporate Event, Karachi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item-home">
+                    <span class="stat-number-home" id="counter1">0</span>
+                    <span class="stat-label-home">Events Completed</span>
+                </div>
+                
+                <div class="stat-item-home">
+                    <span class="stat-number-home" id="counter2">0</span>
+                    <span class="stat-label-home">Happy Clients</span>
+                </div>
+                
+                <div class="stat-item-home">
+                    <span class="stat-number-home" id="counter3">0</span>
+                    <span class="stat-label-home">Photos Printed</span>
+                </div>
+                
+                <div class="stat-item-home">
+                    <span class="stat-number-home" id="counter4">0</span>
+                    <span class="stat-label-home">Cities Served</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG HIGHLIGHT -->
+    <section class="gallery-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest From Our Blog</h2>
+                <p>Tips, trends, and inspiration for your next event</p>
+            </div>
+            
+            <div class="booths-grid">
+                <div class="booth-card-home">
+                    <div class="booth-image-home">
+                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Blog Post">
+                    </div>
+                    <div class="booth-content" style="padding: 25px;">
+                        <h3>2024 Wedding Trends</h3>
+                        <p>Latest photo booth trends for Pakistani weddings</p>
+                        <div style="color: #666; font-size: 0.9rem; margin: 15px 0;">
+                            <i class="far fa-calendar"></i> March 15, 2024
+                        </div>
+                        <a href="blog.html" class="btn" style="padding: 10px 25px;">Read Article</a>
+                    </div>
+                </div>
+                
+                <div class="booth-card-home">
+                    <div class="booth-image-home">
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Blog Post">
+                    </div>
+                    <div class="booth-content" style="padding: 25px;">
+                        <h3>Corporate Event Guide</h3>
+                        <p>How photo booths enhance corporate branding</p>
+                        <div style="color: #666; font-size: 0.9rem; margin: 15px 0;">
+                            <i class="far fa-calendar"></i> March 10, 2024
+                        </div>
+                        <a href="blog.html" class="btn" style="padding: 10px 25px;">Read Article</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="blog.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <i class="fas fa-newspaper"></i> Read All Articles
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section-home">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Make Memories?</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 40px; color: rgba(255,255,255,0.9);">
+                    Get your instant quote today or speak with our event specialists
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="quote.html" class="btn-hero-primary" style="background: white; color: #e76f51;">
+                        <i class="fas fa-calculator"></i> Get Instant Quote
+                    </a>
+                    <a href="tel:+923001234567" class="btn-hero-secondary">
+                        <i class="fas fa-phone-alt"></i> Call Now: +92 300 123 4567
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: About -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+                    </div>
+                    <p class="footer-about">
+                        Since 2015, we've been providing premium photo booth experiences for weddings, corporate events, and parties across Pakistan.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="index.html" class="active">
+                                <i class="fas fa-chevron-right"></i> Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="booths.html">
+                                <i class="fas fa-chevron-right"></i> Our Booths
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html">
+                                <i class="fas fa-chevron-right"></i> Packages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html">
+                                <i class="fas fa-chevron-right"></i> Gallery
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html">
+                                <i class="fas fa-chevron-right"></i> Blog
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3: Services -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Our Services</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="booths.html">
+                                <i class="fas fa-camera"></i> Mirror Photo Booths
+                            </a>
+                        </li>
+                        <li>
+                            <a href="booths.html">
+                                <i class="fas fa-sync-alt"></i> 360° Video Booths
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html">
+                                <i class="fas fa-gem"></i> Premium Packages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html">
+                                <i class="fas fa-palette"></i> Custom Solutions
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4: Contact Info -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Info</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+92 300 123 4567 (24/7)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>bookings@pixbooth.pk</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon-Sun: 9:00 AM - 11:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> PixBooth.pk. All rights reserved.</p>
+                <div class="footer-links-horizontal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem;">
+                    <i class="fas fa-heart" style="color: #e76f51;"></i> Made with love in Pakistan
+                </p>
+            </div>
+        </div>
+    </footer>
+
+     <!--<script src="js/script.js"></script>-->
+
+
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Mobile menu functionality
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // ANIMATED COUNTERS
+        function animateCounter(elementId, finalValue, duration = 2000) {
+            const element = document.getElementById(elementId);
+            const startValue = 0;
+            const increment = finalValue / (duration / 16); // 60fps
+            
+            let currentValue = startValue;
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    element.textContent = finalValue.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(currentValue).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Initialize counters when in viewport
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Start counters
+                    animateCounter('counter1', 500);
+                    animateCounter('counter2', 480);
+                    animateCounter('counter3', 50000);
+                    animateCounter('counter4', 5);
+                    
+                    // Stop observing after animation
+                    observer.disconnect();
+                }
+            });
+        }, observerOptions);
+
+        // Observe stats section
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Gallery preview click handler
+        document.querySelectorAll('.gallery-item-home').forEach(item => {
+            item.addEventListener('click', function() {
+                window.location.href = 'gallery.html';
+            });
+        });
+
+        // Add floating animation to some elements
+        const floatingElements = document.querySelectorAll('.feature-card, .booth-card-home');
+        floatingElements.forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Add hover effect to gallery items
+        const galleryItems = document.querySelectorAll('.gallery-item-home');
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-section');
+            if (hero) {
+                hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+            }
+        });
+
+        // Add scroll animations
+        const animatedElements = document.querySelectorAll('.feature-card, .booth-card-home, .package-card-highlight');
+        
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animatedElements.forEach(element => {
+            scrollObserver.observe(element);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Booth Tips & Trends | PixBooth.pk Blog</title>
+    
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* PAGE SPECIFIC STYLES */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .page-header {
+            text-align: center;
+            padding: 100px 0 40px;
+            background: linear-gradient(135deg, #264653 0%, #1a1a2e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            opacity: 0.15;
+        }
+        
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            color: white;
+            position: relative;
+        }
+        
+        .page-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        /* IMPROVED BLOG LAYOUT WITH BETTER SPACING */
+        .blog-main-content {
+            padding: 40px 0 60px;
+        }
+        
+        /* FEATURED POST WITH IMPROVED SPACING */
+        .featured-post {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+            transition: transform 0.3s ease;
+        }
+        
+        .featured-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 0;
+        }
+        
+        .featured-image {
+            height: 100%;
+            min-height: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .featured-post:hover .featured-image img {
+            transform: scale(1.03);
+        }
+        
+        .featured-text {
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .post-category {
+            display: inline-block;
+            background: #e76f51;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        
+        .post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #264653;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .post-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .post-meta i {
+            color: #2a9d8f;
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+        }
+        
+        .post-excerpt {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        /* BLOG GRID WITH IMPROVED SPACING */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+            margin-bottom: 70px;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .blog-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-card:hover .blog-image img {
+            transform: scale(1.08);
+        }
+        
+        .blog-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-content .post-title {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        /* FULL CONTENT AREA (HIDDEN BY DEFAULT) */
+        .full-content {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s ease;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        .full-content.expanded {
+            max-height: 2000px;
+            opacity: 1;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .full-content h3 {
+            color: #264653;
+            margin: 20px 0 10px;
+            font-size: 1.3rem;
+        }
+        
+        .full-content p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .full-content ul, .full-content ol {
+            margin: 15px 0 15px 20px;
+            color: #555;
+        }
+        
+        .full-content li {
+            margin-bottom: 8px;
+        }
+        
+        .read-more-btn {
+            background: transparent;
+            border: 2px solid #2a9d8f;
+            color: #2a9d8f;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
+            width: fit-content;
+        }
+        
+        .read-more-btn:hover {
+            background: #2a9d8f;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .read-more-btn.expanded {
+            background: #264653;
+            border-color: #264653;
+            color: white;
+        }
+        
+        .read-more-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .read-more-btn.expanded i {
+            transform: rotate(180deg);
+        }
+        
+        /* SIDEBAR WITH IMPROVED SPACING */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .widget-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #264653;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* RESPONSIVE DESIGN IMPROVEMENTS */
+        @media (max-width: 1200px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 0 20px;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-top: 40px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                min-height: 350px;
+                max-height: 350px;
+            }
+            
+            .featured-text {
+                padding: 30px;
+            }
+            
+            .blog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 80px 20px 30px;
+                margin-bottom: 30px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .blog-main-content {
+                padding: 30px 0 40px;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-bottom: 50px;
+            }
+            
+            .featured-post {
+                margin-bottom: 40px;
+            }
+            
+            .post-title {
+                font-size: 1.8rem;
+            }
+            
+            .blog-content .post-title {
+                font-size: 1.3rem;
+            }
+            
+            .sidebar-widget {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+            
+            .featured-text {
+                padding: 25px;
+            }
+            
+            .post-meta {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.9rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .post-category {
+                font-size: 0.8rem;
+                padding: 6px 15px;
+            }
+            
+            .blog-content {
+                padding: 20px;
+            }
+            
+            .read-more-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .blog-card, .featured-post {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .blog-card:nth-child(2) { animation-delay: 0.1s; }
+        .blog-card:nth-child(3) { animation-delay: 0.2s; }
+        .blog-card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="booths.html"><i class="fas fa-camera"></i> Booths</a>
+                
+                <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
+                <a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="quote.html" class="nav-cta"><i class="fas fa-quote-right"></i> Get Quote</a>
+            </div>
+            
+            <button class="hamburger" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>PixBooth Insights & Trends</h1>
+            <p>Expert advice, latest trends, and creative inspiration for your perfect photo booth experience in Pakistan</p>
+            
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Articles</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Readers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5⭐</span>
+                    <span class="stat-label">Ratings</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG CONTENT -->
+    <main class="container blog-main-content">
+        <!-- FEATURED POST -->
+        <div class="featured-post">
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Wedding Photo Booth Trends">
+                </div>
+                <div class="featured-text">
+                    <span class="post-category">Wedding Trends</span>
+                    <h2 class="post-title">Revolutionizing Pakistani Weddings: Top Photo Booth Trends 2024</h2>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> March 15, 2024</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                        <span><i class="far fa-comment"></i> 42 comments</span>
+                    </div>
+                    <p class="post-excerpt">
+                        Pakistani weddings are evolving, and photo booths are at the forefront of this change. From traditional mehndi functions to grand valima receptions, discover how modern photo booth technology is transforming celebrations across Lahore, Karachi, and Islamabad...
+                    </p>
+                    
+                    <!-- Hidden full content -->
+                    <div class="full-content" id="featuredFullContent">
+                        <h3>The Rise of Interactive Photo Experiences</h3>
+                        <p>Gone are the days of simple photo prints. Today's Pakistani couples are opting for interactive experiences that engage every guest. Mirror booths with touchscreen technology allow real-time editing, filters, and instant social media sharing - perfect for the Instagram generation.</p>
+                        
+                        <h3>Cultural Fusion in Backdrop Designs</h3>
+                        <p>Modern Pakistani weddings beautifully blend traditional and contemporary elements. We're seeing stunning backdrops that incorporate:</p>
+                        <ul>
+                            <li>Traditional Pakistani truck art patterns with neon accents</li>
+                            <li>Digital Mughal architecture motifs</li>
+                            <li>Customized couple monograms in Urdu calligraphy</li>
+                            <li>LED-lit mehndi designs</li>
+                        </ul>
+                        
+                        <h3>360° Video Booths: The New Wedding Essential</h3>
+                        <p>The 360° video booth has become the star attraction at recent weddings. These booths capture slow-motion spinning videos that become viral content on social media. Perfect for capturing:</p>
+                        <ol>
+                            <li>Bridal entry moments</li>
+                            <li>Family group videos</li>
+                            <li>Friends' dance performances</li>
+                            <li>Candle lighting ceremonies</li>
+                        </ol>
+                        
+                        <h3>Personalized Keepsakes</h3>
+                        <p>Instead of generic prints, couples now opt for personalized souvenirs:</p>
+                        <p><strong>Custom Photo Albums:</strong> Created in real-time during the event</p>
+                        <p><strong>Animated GIFs:</strong> Perfect for WhatsApp sharing</p>
+                        <p><strong>Augmented Reality Filters:</strong> Adding virtual jewelry or cultural elements</p>
+                    </div>
+                    
+                    <button class="read-more-btn" data-target="featuredFullContent">
+                        <i class="fas fa-chevron-down"></i> Read Full Article
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOG GRID WITH IMPROVED SPACING -->
+        <div class="blog-container">
+            <div class="blog-main">
+                <div class="blog-grid">
+                    <!-- Blog Post 1 - Corporate Events -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Corporate Event Branding">
+                        </div>
+                        <div class="blog-content">
+                            <span class="post-category">Corporate Branding</span>
+                            <h3 class="post-title">Boost Employee Engagement with Photo Booths</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 12, 2024</span>
+                                <span><i class="far fa-clock"></i> 6 min read</span>
+                            </div>
+                            <p class="post-excerpt">
+                                Discover how leading Pakistani companies are using customized photo booths for team building, product launches, and corporate events to enhance brand visibility and employee satisfaction.
+                            </p>
+                            
+                            <div class="full-content" id="content1">
+                                <h3>Why Corporate Photo Booths Work</h3>
+                                <p>In today's competitive business environment, employee engagement is crucial. Photo booths offer a unique way to:</p>
+                                <ul>
+                                    <li>Break the ice at corporate events</li>
+                                    <li>Create shareable content for company social media</li>
+                                    <li>Document important milestones and achievements</li>
+                                    <li>Foster team bonding in a relaxed environment</li>
+                                </ul>
+                                
+                                <h3>Customization for Brand Identity</h3>
+                                <p>We work with companies to create fully branded experiences:</p>
+                                <p><strong>Company Logo Integration:</strong> Custom frames and overlays</p>
+                                <p><strong>Brand Color Schemes:</strong> Matching your corporate identity</p>
+                                <p><strong>Hashtag Campaigns:</strong> Encouraging social media engagement</p>
+                                
+                                <h3>Case Study: Tech Company Annual Dinner</h3>
+                                <p>A leading IT company in Karachi used our mirror booth at their annual dinner. Results:</p>
+                                <ul>
+                                    <li>500+ photos taken in 3 hours</li>
+                                    <li>200+ social media shares with company hashtag</li>
+                                    <li>98% employee participation rate</li>
+                                    <li>Increased social media followers by 15%</li>
+                                </ul>
+                            </div>
+                            
+                            <button class="read-more-btn" data-target="content1">
+                                <i class="fas fa-chevron-down"></i> Continue Reading
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 2 - Technology Comparison -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80" 
+                                 alt="Technology Comparison">
+                        </div>
+                        <div class="blog-content">
+                            <span class="post-category">Tech Guide</span>
+                            <h3 class="post-title">Mirror vs 360° Booth: Complete Comparison Guide</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 8, 2024</span>
+                                <span><i class="far fa-clock"></i> 10 min read</span>
+                            </div>
+                            <p class="post-excerpt">
+                                Confused between mirror and 360° booths? Our detailed comparison covers everything from technology differences to event suitability for Pakistani celebrations.
+                            </p>
+                            
+                            <div class="full-content" id="content2">
+                                <h3>Technology Breakdown</h3>
+                                <p><strong>Mirror Booth:</strong> Full-length touchscreen with real-time editing</p>
+                                <p><strong>360° Booth:</strong> Rotating camera system for dynamic videos</p>
+                                
+                                <h3>Event Suitability</h3>
+                                <p><strong>Mirror Booths Are Best For:</strong></p>
+                                <ul>
+                                    <li>Wedding receptions with large guest counts</li>
+                                    <li>Corporate events requiring brand integration</li>
+                                    <li>Events with limited space</li>
+                                </ul>
+                                
+                                <p><strong>360° Booths Are Best For:</strong></p>
+                                <ul>
+                                    <li>Mehndi and mayun functions with dance performances</li>
+                                    <li>Birthday parties and celebrations</li>
+                                    <li>Events where video content is preferred</li>
+                                </ul>
+                                
+                                <h3>Cost Comparison in Pakistan</h3>
+                                <p>Prices vary based on duration and customization:</p>
+                                <p><strong>Mirror Booth:</strong> PKR 45,000 - 60,000 per event</p>
+                                <p><strong>360° Booth:</strong> PKR 55,000 - 75,000 per event</p>
+                                
+                                <h3>Space Requirements</h3>
+                                <p>Mirror booths need minimum 8x8 feet, while 360° booths require 10x10 feet for optimal operation.</p>
+                            </div>
+                            
+                            <button class="read-more-btn" data-target="content2">
+                                <i class="fas fa-chevron-down"></i> Continue Reading
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 3 - DIY Backdrops -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="DIY Backdrop Ideas">
+                        </div>
+                        <div class="blog-content">
+                            <span class="post-category">DIY Guide</span>
+                            <h3 class="post-title">Budget-Friendly Backdrop Ideas for Pakistani Events</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 5, 2024</span>
+                                <span><i class="far fa-clock"></i> 7 min read</span>
+                            </div>
+                            <p class="post-excerpt">
+                                Create stunning photo booth backdrops without breaking the bank. Step-by-step guide using locally available materials in Pakistan for weddings, birthdays, and corporate events.
+                            </p>
+                            
+                            <div class="full-content" id="content3">
+                                <h3>Traditional Pakistani Themes</h3>
+                                <p><strong>Rilli/Razai Quilt Backdrop:</strong> Use colorful traditional quilts for a cozy, cultural look</p>
+                                <p><strong>Ajrak Print Wall:</strong> Create a stunning backdrop with Sindhi ajrak prints</p>
+                                <p><strong>Phulkari Embroidery:</strong> Incorporate Punjabi embroidery patterns</p>
+                                
+                                <h3>Modern Fusion Ideas</h3>
+                                <p><strong>LED + Traditional:</strong> Combine fairy lights with traditional fabrics</p>
+                                <p><strong>Neon Urdu Calligraphy:</strong> Modern twist on traditional art</p>
+                                <p><strong>Digital Pattern Projection:</strong> Use projectors for dynamic backgrounds</p>
+                                
+                                <h3>Budget Breakdown</h3>
+                                <p><strong>Basic Backdrop:</strong> PKR 5,000 - 10,000</p>
+                                <p><strong>Medium Backdrop:</strong> PKR 10,000 - 25,000</p>
+                                <p><strong>Premium Backdrop:</strong> PKR 25,000 - 50,000</p>
+                                
+                                <h3>Local Material Sources</h3>
+                                <p>Find materials in Lahore's Anarkali, Karachi's Zainab Market, or Islamabad's Sunday Market.</p>
+                            </div>
+                            
+                            <button class="read-more-btn" data-target="content3">
+                                <i class="fas fa-chevron-down"></i> Continue Reading
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 4 - Event Planning -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Event Planning Timeline">
+                        </div>
+                        <div class="blog-content">
+                            <span class="post-category">Planning Guide</span>
+                            <h3 class="post-title">Photo Booth Timeline: When to Book for Pakistani Events</h3>
+                            <div class="post-meta">
+                                <span><i class="far fa-calendar"></i> March 1, 2024</span>
+                                <span><i class="far fa-clock"></i> 5 min read</span>
+                            </div>
+                            <p class="post-excerpt">
+                                Avoid last-minute stress with our comprehensive booking guide. Perfect timing for weddings, corporate events, and celebrations in Pakistan's busy event season.
+                            </p>
+                            
+                            <div class="full-content" id="content4">
+                                <h3>Wedding Season Planning</h3>
+                                <p>Pakistan's wedding season peaks from October to March. Book accordingly:</p>
+                                <p><strong>6-8 Months Before:</strong> Research and shortlist vendors</p>
+                                <p><strong>4-6 Months Before:</strong> Finalize booking with deposit</p>
+                                <p><strong>2-3 Months Before:</strong> Customization and planning</p>
+                                <p><strong>1 Month Before:</strong> Final confirmation</p>
+                                
+                                <h3>Corporate Event Timeline</h3>
+                                <p><strong>Annual Parties:</strong> Book 3-4 months in advance</p>
+                                <p><strong>Product Launches:</strong> Book 2-3 months in advance</p>
+                                <p><strong>Team Building:</strong> Book 1-2 months in advance</p>
+                                
+                                <h3>Last-Minute Booking Tips</h3>
+                                <p>If you're booking last minute:</p>
+                                <ul>
+                                    <li>Be flexible with booth type</li>
+                                    <li>Consider weekday discounts</li>
+                                    <li>Ask about cancellation lists</li>
+                                    <li>Opt for standard packages</li>
+                                </ul>
+                                
+                                <h3>Peak Season vs Off-Season</h3>
+                                <p>Save 15-20% by booking during off-season (April-September) for events outside peak wedding months.</p>
+                            </div>
+                            
+                            <button class="read-more-btn" data-target="content4">
+                                <i class="fas fa-chevron-down"></i> Continue Reading
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Footer content remains exactly the same as before -->
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+                    </div>
+                    <p class="footer-about">
+                        Since 2015, we've been providing premium photo booth experiences for weddings, corporate events, and parties across Pakistan.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-chevron-right"></i> Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="booths.html">
+                                <i class="fas fa-chevron-right"></i> Our Booths
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html">
+                                <i class="fas fa-chevron-right"></i> Packages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html">
+                                <i class="fas fa-chevron-right"></i> Gallery
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html" class="active">
+                                <i class="fas fa-chevron-right"></i> Blog
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Popular Categories</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-heart"></i> Wedding Trends
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-briefcase"></i> Corporate Events
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-lightbulb"></i> DIY Guides
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-calendar"></i> Planning Tips
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+92 300 123 4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>bookings@pixbooth.pk</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Sun: 9:00 AM - 11:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> PixBooth.pk. All rights reserved.</p>
+                <div class="footer-links-horizontal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem;">
+                    <i class="fas fa-heart" style="color: #e76f51;"></i> Made with love in Pakistan
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Mobile menu functionality
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // CONTINUE READING FUNCTIONALITY
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const contentDiv = document.getElementById(targetId);
+                const isExpanded = contentDiv.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // Collapse content
+                    contentDiv.classList.remove('expanded');
+                    this.innerHTML = '<i class="fas fa-chevron-down"></i> Continue Reading';
+                    this.classList.remove('expanded');
+                    
+                    // Smooth scroll to button
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    // Expand content
+                    contentDiv.classList.add('expanded');
+                    this.innerHTML = '<i class="fas fa-chevron-up"></i> Show Less';
+                    this.classList.add('expanded');
+                    
+                    // Smooth scroll to expanded content
+                    contentDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add hover animations
+        const blogCards = document.querySelectorAll('.blog-card');
+        blogCards.forEach((card, index) => {
+            // Add staggered animation delay
+            card.style.animationDelay = `${index * 0.1}s`;
+            
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                // Show success message
+                alert(`Thank you for subscribing with ${email}! You'll receive our weekly newsletter soon.`);
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>

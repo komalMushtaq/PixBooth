@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Booth Gallery | PixBooth.pk</title>
+    
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* PAGE SPECIFIC STYLES */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .page-header {
+            text-align: center;
+            padding: 100px 0 60px;
+            background: linear-gradient(135deg, #264653 0%, #1a1a2e 100%);
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .page-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* FILTER BUTTONS */
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 40px 0;
+            padding: 0 20px;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            color: #264653;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #264653;
+            color: white;
+            border-color: #264653;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(38, 70, 83, 0.2);
+        }
+        
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 300px;
+            background: #f5f5f5;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(38, 70, 83, 0.9));
+            color: white;
+            padding: 25px 20px 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-category {
+            background: #2a9d8f;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        
+        /* LIGHTBOX MODAL */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-lightbox:hover {
+            transform: rotate(90deg);
+            color: #e76f51;
+        }
+        
+        .lightbox-info {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        
+        /* GALLERY STATS */
+        .gallery-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 60px 0 40px;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #264653;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* TESTIMONIAL SECTION */
+        .testimonials-section {
+            background: linear-gradient(135deg, #2a9d8f, #264653);
+            color: white;
+            padding: 80px 30px;
+            margin: 60px 0;
+            border-radius: 15px;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px;
+        }
+        
+        .client-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-bottom: 20px;
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 80px 20px 40px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+                padding: 10px;
+            }
+            
+            .gallery-item {
+                height: 250px;
+            }
+            
+            .gallery-filters {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .gallery-stats {
+                gap: 20px;
+                padding: 30px 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                height: 300px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .testimonial-item {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="booths.html"><i class="fas fa-camera"></i> Booths</a>
+               
+                <a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a>
+                <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="quote.html" class="nav-cta"><i class="fas fa-quote-right"></i> Get Quote</a>
+            </div>
+            
+            <button class="hamburger" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Photo Booth Gallery</h1>
+            <p>Browse through thousands of real moments captured at weddings, corporate events, and celebrations across Pakistan</p>
+            
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number">2,500+</span>
+                    <span class="stat-label">Photos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Events</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Cities</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY FILTERS -->
+    <div class="container">
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">All Photos</button>
+            <button class="filter-btn" data-filter="wedding">Weddings</button>
+            <button class="filter-btn" data-filter="corporate">Corporate</button>
+            <button class="filter-btn" data-filter="birthday">Birthdays</button>
+            <button class="filter-btn" data-filter="engagement">Engagements</button>
+            <button class="filter-btn" data-filter="mirror">Mirror Booth</button>
+            <button class="filter-btn" data-filter="360">360° Booth</button>
+            <button class="filter-btn" data-filter="vintage">Vintage</button>
+        </div>
+    </div>
+
+    <!-- GALLERY GRID -->
+    <div class="container">
+        <div class="gallery-grid" id="galleryContainer">
+            <!-- Wedding Photos -->
+            <div class="gallery-item" data-category="wedding">
+                <div class="gallery-category">Wedding</div>
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Wedding photo booth" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Ali & Sara's Wedding</h4>
+                    <p>Lahore, 2023 | Classic Booth</p>
+                </div>
+            </div>
+            
+            <!-- Corporate Event -->
+            <div class="gallery-item" data-category="corporate mirror">
+                <div class="gallery-category">Corporate</div>
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Corporate event" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Tech Conference 2023</h4>
+                    <p>Karachi | Mirror Booth</p>
+                </div>
+            </div>
+            
+            <!-- Birthday Party -->
+            <div class="gallery-item" data-category="birthday 360">
+                <div class="gallery-category">Birthday</div>
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Birthday party" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Aisha's 25th Birthday</h4>
+                    <p>Islamabad | 360° Booth</p>
+                </div>
+            </div>
+            
+            <!-- Engagement -->
+            <div class="gallery-item" data-category="engagement vintage">
+                <div class="gallery-category">Engagement</div>
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Engagement ceremony" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Ahmed & Fatima's Engagement</h4>
+                    <p>Rawalpindi | Vintage Booth</p>
+                </div>
+            </div>
+            
+            <!-- Wedding 2 -->
+            <div class="gallery-item" data-category="wedding mirror">
+                <div class="gallery-category">Wedding</div>
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Wedding photo" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Usman & Mariam's Wedding</h4>
+                    <p>Faisalabad | Mirror Booth</p>
+                </div>
+            </div>
+            
+            <!-- Corporate 2 -->
+            <div class="gallery-item" data-category="corporate">
+                <div class="gallery-category">Corporate</div>
+                <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Office party" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Annual Office Party</h4>
+                    <p>Lahore | Open Air Booth</p>
+                </div>
+            </div>
+            
+            <!-- Birthday 2 -->
+            <div class="gallery-item" data-category="birthday vintage">
+                <div class="gallery-category">Birthday</div>
+                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Kids birthday" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Zain's 5th Birthday</h4>
+                    <p>Karachi | Vintage Booth</p>
+                </div>
+            </div>
+            
+            <!-- Engagement 2 -->
+            <div class="gallery-item" data-category="engagement 360">
+                <div class="gallery-category">Engagement</div>
+                <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Engagement party" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Bilal & Hina's Engagement</h4>
+                    <p>Islamabad | 360° Booth</p>
+                </div>
+            </div>
+            
+            <!-- Wedding 3 -->
+            <div class="gallery-item" data-category="wedding">
+                <div class="gallery-category">Wedding</div>
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Wedding reception" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Kamran & Sana's Wedding</h4>
+                    <p>Lahore | GIF Booth</p>
+                </div>
+            </div>
+            
+            <!-- Corporate 3 -->
+            <div class="gallery-item" data-category="corporate mirror">
+                <div class="gallery-category">Corporate</div>
+                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Product launch" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Product Launch Event</h4>
+                    <p>Karachi | Mirror Booth</p>
+                </div>
+            </div>
+            
+            <!-- Birthday 3 -->
+            <div class="gallery-item" data-category="birthday">
+                <div class="gallery-category">Birthday</div>
+                <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Surprise party" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Surprise 30th Birthday</h4>
+                    <p>Rawalpindi | LED Light Booth</p>
+                </div>
+            </div>
+            
+            <!-- Wedding 4 -->
+            <div class="gallery-item" data-category="wedding vintage">
+                <div class="gallery-category">Wedding</div>
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                     alt="Wedding ceremony" class="gallery-img">
+                <div class="gallery-overlay">
+                    <h4>Omar & Ayesha's Wedding</h4>
+                    <p>Faisalabad | Vintage Booth</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY STATS -->
+    <div class="container">
+        <div class="gallery-stats">
+            <div class="stat-box">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Client Satisfaction</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support Available</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Booth Types</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Prop Collections</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <div class="lightbox-content">
+            <button class="close-lightbox">&times;</button>
+            <img id="lightboxImage" src="" alt="" class="lightbox-img">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTIMONIALS SECTION -->
+    <div class="container">
+        <div class="testimonials-section">
+            <div class="section-title">
+                <h2 style="color: white;">What Our Clients Say</h2>
+                <p style="color: rgba(255,255,255,0.9);">Real feedback from our happy customers</p>
+            </div>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-item">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Client" class="client-photo">
+                    <h4>Sana Ahmed</h4>
+                    <p><i class="fas fa-quote-left"></i> The 360° booth at our wedding was the highlight of the night! Guests are still talking about it. Professional service and amazing quality. <i class="fas fa-quote-right"></i></p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: About -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+                    </div>
+                    <p class="footer-about">
+                        Since 2015, we've been providing premium photo booth experiences for weddings, corporate events, and parties across Pakistan.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-chevron-right"></i> Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="booths.html">
+                                <i class="fas fa-chevron-right"></i> Our Booths
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html">
+                                <i class="fas fa-chevron-right"></i> Packages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html" class="active">
+                                <i class="fas fa-chevron-right"></i> Gallery
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html">
+                                <i class="fas fa-chevron-right"></i> Blog
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3: Event Types -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Event Types</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="gallery.html?filter=wedding">
+                                <i class="fas fa-heart"></i> Weddings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html?filter=corporate">
+                                <i class="fas fa-briefcase"></i> Corporate
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html?filter=birthday">
+                                <i class="fas fa-birthday-cake"></i> Birthdays
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html?filter=engagement">
+                                <i class="fas fa-gem"></i> Engagements
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4: Contact Info -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+92 300 123 4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>bookings@pixbooth.pk</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Sun: 9:00 AM - 11:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> PixBooth.pk. All rights reserved.</p>
+                <div class="footer-links-horizontal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem;">
+                    <i class="fas fa-heart" style="color: #e76f51;"></i> Made with love in Pakistan
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Mobile menu functionality
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // GALLERY FILTERING
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDesc = document.getElementById('lightboxDesc');
+        const closeLightbox = document.querySelector('.close-lightbox');
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Show/hide gallery items based on filter
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category').includes(filterValue)) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // LIGHTBOX FUNCTIONALITY
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('.gallery-img').src;
+                const title = this.querySelector('.gallery-overlay h4').textContent;
+                const desc = this.querySelector('.gallery-overlay p').textContent;
+                
+                lightboxImage.src = imgSrc;
+                lightboxTitle.textContent = title;
+                lightboxDesc.textContent = desc;
+                
+                lightboxModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close lightbox
+        function closeLightboxModal() {
+            lightboxModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        closeLightbox.addEventListener('click', closeLightboxModal);
+        
+        // Close lightbox when clicking outside
+        lightboxModal.addEventListener('click', function(e) {
+            if (e.target === lightboxModal) {
+                closeLightboxModal();
+            }
+        });
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightboxModal.style.display === 'flex') {
+                closeLightboxModal();
+            }
+        });
+
+        // Hover animations for gallery items
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Add scroll animation for gallery items
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all gallery items
+        galleryItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease, display 0.3s ease';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Photo Booths | PixBooth.pk</title>
+    
+    <!-- CSS LINKS -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+
+
+    <!-- Add EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function() {
+       emailjs.init("YOUR_PUBLIC_KEY"); // Same public key as above
+   })();
+        
+    </script>
+
+
+
+    
+    <style>
+        /* PAGE SPECIFIC STYLES */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .page-header {
+            text-align: center;
+        }
+        
+        /* SECTION SPACING */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #264653;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, #264653, #1a1a2e);
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            padding: 60px 30px;
+            margin: 60px 0;
+        }
+        
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        /* MODAL STYLES */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: modalFade 0.3s ease-out;
+        }
+        
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .selected-booth {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #2a9d8f;
+        }
+        
+        .selected-booth h4 {
+            color: #264653;
+            margin: 0 0 5px 0;
+        }
+        
+        .selected-booth .booth-price {
+            color: #e76f51;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #264653;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2a9d8f;
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(42, 157, 143, 0.3);
+        }
+        
+        .btn-cancel {
+            background-color: #f8f9fa;
+            color: #666;
+            border: 2px solid #e0e0e0;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #e9ecef;
+        }
+        
+        /* Responsive adjustments for modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 98%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="booths.html" class="active"><i class="fas fa-camera"></i> Booths</a>
+               
+                <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
+                <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="quote.html" class="nav-cta"><i class="fas fa-quote-right"></i> Get Quote</a>
+            </div>
+            
+            <button class="hamburger" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- BOOKING MODAL -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-plus"></i> Book Your Photo Booth</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="selected-booth">
+                    <h4>Selected Booth: <span id="selectedBoothName">Classic Enclosed Booth</span></h4>
+                    <p id="selectedBoothDesc">Traditional photo booth with privacy curtain</p>
+                    <div class="booth-price" id="selectedBoothPrice">PKR 25,000/day</div>
+                </div>
+                
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName"><i class="fas fa-user"></i> Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="03XX-XXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDate"><i class="fas fa-calendar-day"></i> Event Date *</label>
+                            <input type="date" id="eventDate" name="eventDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventType"><i class="fas fa-star"></i> Event Type *</label>
+                            <select id="eventType" name="eventType" required>
+                                <option value="">Select event type</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="corporate">Corporate Event</option>
+                                <option value="birthday">Birthday Party</option>
+                                <option value="engagement">Engagement</option>
+                                <option value="mehndi">Mehndi Function</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="guestCount"><i class="fas fa-users"></i> Estimated Guests</label>
+                            <input type="number" id="guestCount" name="guestCount" min="1" max="1000" placeholder="Approximate number of guests">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="boothType"><i class="fas fa-camera"></i> Booth Type *</label>
+                        <select id="boothType" name="boothType" required>
+                            <option value="Classic Enclosed Booth">Classic Enclosed Booth</option>
+                            <option value="Mirror Photo Booth">Mirror Photo Booth</option>
+                            <option value="360° Video Booth">360° Video Booth</option>
+                            <option value="Open Air Booth">Open Air Booth</option>
+                            <option value="GIF Photo Booth">GIF Photo Booth</option>
+                            <option value="Vintage Retro Booth">Vintage Retro Booth</option>
+                            <option value="Magic Selfie Booth">Magic Selfie Booth</option>
+                            <option value="LED Light Booth">LED Light Booth</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventAddress"><i class="fas fa-map-marker-alt"></i> Event Address</label>
+                        <input type="text" id="eventAddress" name="eventAddress" placeholder="Venue address (if known)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests"><i class="fas fa-comment"></i> Special Requests / Notes</label>
+                        <textarea id="specialRequests" name="specialRequests" rows="4" placeholder="Any specific requirements, timings, or additional services needed..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Submit Booking Request
+                        </button>
+                        <button type="button" class="btn-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Explore Our Photo Booths</h1>
+            <p>Choose from our premium collection of 8 amazing photo booth experiences for your special event</p>
+            
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number">8+</span>
+                    <span class="stat-label">Booth Types</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Events</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALL BOOTHS SECTION -->
+    <main class="container">
+        <div class="section">
+            <div class="section-title">
+                <h2>Our Premium Booth Collection</h2>
+                <p>Each booth comes with professional setup, attendant, and unlimited prints</p>
+            </div>
+            
+            <!-- BOOTHS GRID - 8 CARDS -->
+            <div class="booths-grid">
+                <!-- Booth 1 -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="Classic Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>Classic Enclosed Booth</h3>
+                        <p>Traditional photo booth with privacy curtain, perfect for weddings and formal events.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> High-resolution DSLR camera</li>
+                            <li><i class="fas fa-check"></i> Professional lighting setup</li>
+                            <li><i class="fas fa-check"></i> Instant 4x6 glossy prints</li>
+                            <li><i class="fas fa-check"></i> Custom backdrop options</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 25,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="Classic Enclosed Booth" data-price="PKR 25,000/day" data-desc="Traditional photo booth with privacy curtain, perfect for weddings and formal events.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 2 -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="Mirror Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>Mirror Photo Booth</h3>
+                        <p>Modern touchscreen mirror with animations, filters, and social media integration.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> Full-length touchscreen mirror</li>
+                            <li><i class="fas fa-check"></i> Animated overlays & AR filters</li>
+                            <li><i class="fas fa-check"></i> Instant social media sharing</li>
+                            <li><i class="fas fa-check"></i> 4K video recording</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 45,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="Mirror Photo Booth" data-price="PKR 45,000/day" data-desc="Modern touchscreen mirror with animations, filters, and social media integration.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 3 -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="360 Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>360° Video Booth</h3>
+                        <p>Capture slow-motion spinning videos for a dynamic social media experience.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> 360° rotating camera system</li>
+                            <li><i class="fas fa-check"></i> Slow-motion video capture</li>
+                            <li><i class="fas fa-check"></i> Automated video editing</li>
+                            <li><i class="fas fa-check"></i> LED lighting effects</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 55,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="360° Video Booth" data-price="PKR 55,000/day" data-desc="Capture slow-motion spinning videos for a dynamic social media experience.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 4 -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="Open Air Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>Open Air Booth</h3>
+                        <p>Spacious setup perfect for large groups, corporate events, and festivals.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> Wide-angle lens for groups</li>
+                            <li><i class="fas fa-check"></i> Professional backdrop system</li>
+                            <li><i class="fas fa-check"></i> Premium props collection</li>
+                            <li><i class="fas fa-check"></i> Digital copy sharing</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 35,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="Open Air Booth" data-price="PKR 35,000/day" data-desc="Spacious setup perfect for large groups, corporate events, and festivals.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 5 -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="GIF Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>GIF Photo Booth</h3>
+                        <p>Create animated GIFs with custom backgrounds, text, and effects.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> Animated GIF creation</li>
+                            <li><i class="fas fa-check"></i> Custom text overlays</li>
+                            <li><i class="fas fa-check"></i> Green screen technology</li>
+                            <li><i class="fas fa-check"></i> QR code instant sharing</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 38,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="GIF Photo Booth" data-price="PKR 38,000/day" data-desc="Create animated GIFs with custom backgrounds, text, and effects.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 6 -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="Vintage Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>Vintage Retro Booth</h3>
+                        <p>1950s style booth with vintage filters, sepia tones, and retro props.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> Vintage camera effects</li>
+                            <li><i class="fas fa-check"></i> Sepia/black & white prints</li>
+                            <li><i class="fas fa-check"></i> Classic retro props</li>
+                            <li><i class="fas fa-check"></i> Polaroid-style prints</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 32,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="Vintage Retro Booth" data-price="PKR 32,000/day" data-desc="1950s style booth with vintage filters, sepia tones, and retro props.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 7 - NEW -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="Magic Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>Magic Selfie Booth</h3>
+                        <p>Augmented reality booth with virtual backgrounds and magical effects.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> Augmented reality effects</li>
+                            <li><i class="fas fa-check"></i> Virtual background changer</li>
+                            <li><i class="fas fa-check"></i> Magic wand props</li>
+                            <li><i class="fas fa-check"></i> Animated frames</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 42,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="Magic Selfie Booth" data-price="PKR 42,000/day" data-desc="Augmented reality booth with virtual backgrounds and magical effects.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booth 8 - NEW -->
+                <div class="booth-card">
+                    <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600" 
+                         alt="LED Booth" class="booth-img">
+                    <div class="booth-content">
+                        <h3>LED Light Booth</h3>
+                        <p>Booth with programmable LED lights and neon effects for parties.</p>
+                        
+                        <ul class="booth-features">
+                            <li><i class="fas fa-check"></i> Programmable LED lights</li>
+                            <li><i class="fas fa-check"></i> Neon sign backdrop</li>
+                            <li><i class="fas fa-check"></i> Glow-in-dark props</li>
+                            <li><i class="fas fa-check"></i> Disco ball effects</li>
+                        </ul>
+                        
+                        <div class="booth-price">PKR 48,000/day</div>
+                        <div class="booth-btn-container">
+                            <button class="btn btn-primary book-booth-btn" data-booth="LED Light Booth" data-price="PKR 48,000/day" data-desc="Booth with programmable LED lights and neon effects for parties.">
+                                <i class="fas fa-calendar-plus"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- COMPARISON CTA -->
+            <div class="cta-section">
+                <h2 class="cta-title">Can't Decide Which Booth?</h2>
+                <p style="color: rgba(255,255,255,0.9); max-width: 700px; margin: 0 auto 30px;">
+                    Our experts will help you choose the perfect booth based on your event type, guest count, and budget.
+                </p>
+                <div class="cta-buttons">
+                    <a href="tel:+923001234567" class="btn btn-secondary" style="font-size: 1.1rem;">
+                        <i class="fas fa-phone-alt"></i> Call for Consultation
+                    </a>
+                    <button class="btn" style="background: white; color: #264653; font-size: 1.1rem;" onclick="window.location.href='contact.html'">
+                        <i class="fas fa-calendar-check"></i> Schedule Meeting
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- COMPLETE FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: About -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-camera-retro"></i> PixBooth<span>.pk</span>
+                    </div>
+                    <p class="footer-about">
+                        Since 2015, we've been providing premium photo booth experiences for weddings, corporate events, and parties across Pakistan.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="index.html">
+                                <i class="fas fa-chevron-right"></i> Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="booths.html" class="active">
+                                <i class="fas fa-chevron-right"></i> Our Booths
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html">
+                                <i class="fas fa-chevron-right"></i> Packages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="gallery.html">
+                                <i class="fas fa-chevron-right"></i> Gallery
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blog.html">
+                                <i class="fas fa-chevron-right"></i> Blog
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3: Popular Booths -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Popular Booths</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#" class="book-booth-btn" data-booth="Mirror Photo Booth" data-price="PKR 45,000/day" data-desc="Modern touchscreen mirror with animations, filters, and social media integration.">
+                                <i class="fas fa-camera"></i> Mirror Booth
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="book-booth-btn" data-booth="360° Video Booth" data-price="PKR 55,000/day" data-desc="Capture slow-motion spinning videos for a dynamic social media experience.">
+                                <i class="fas fa-sync-alt"></i> 360° Booth
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="book-booth-btn" data-booth="Classic Enclosed Booth" data-price="PKR 25,000/day" data-desc="Traditional photo booth with privacy curtain, perfect for weddings and formal events.">
+                                <i class="fas fa-cube"></i> Classic Booth
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="book-booth-btn" data-booth="GIF Photo Booth" data-price="PKR 38,000/day" data-desc="Create animated GIFs with custom backgrounds, text, and effects.">
+                                <i class="fas fa-film"></i> GIF Booth
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4: Contact Info -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+92 300 123 4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>bookings@pixbooth.pk</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Sun: 9:00 AM - 11:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> PixBooth.pk. All rights reserved.</p>
+                <div class="footer-links-horizontal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem;">
+                    <i class="fas fa-heart" style="color: #e76f51;"></i> Made with love in Pakistan
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <!--<script src="js/script.js"></script> -->
+
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<!-- Initialize EmailJS -->
+<script>
+  (function () {
+    emailjs.init("TBUf-bmQJr3PPRCLV"); // 🔴 Your Public Key
+  })();
+</script>
+
+<script>
+// -----------------------------
+// GENERAL PAGE JS
+// -----------------------------
+
+// Set current year in footer
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+// Mobile menu toggle
+document.querySelector('.hamburger').addEventListener('click', function() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+    const icon = this.querySelector('i');
+    icon.className = navLinks.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+});
+
+// BOOKING MODAL
+const bookingModal = document.getElementById('bookingModal');
+const closeModalBtn = document.querySelector('.close-modal');
+const cancelBtn = document.querySelector('.btn-cancel');
+const bookingForm = document.getElementById('bookingForm');
+
+function openBookingModal(boothName, boothPrice, boothDesc) {
+    document.getElementById('selectedBoothName').textContent = boothName;
+    document.getElementById('selectedBoothPrice').textContent = boothPrice;
+    document.getElementById('selectedBoothDesc').textContent = boothDesc;
+    document.getElementById('boothType').value = boothName;
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('eventDate').min = today;
+    bookingModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBookingModal() {
+    bookingModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Open modal on button click
+document.querySelectorAll('.book-booth-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const boothName = this.getAttribute('data-booth');
+        const boothPrice = this.getAttribute('data-price');
+        const boothDesc = this.getAttribute('data-desc');
+        openBookingModal(boothName, boothPrice, boothDesc);
+    });
+});
+
+closeModalBtn.addEventListener('click', closeBookingModal);
+cancelBtn.addEventListener('click', closeBookingModal);
+
+window.addEventListener('click', function(event) {
+    if (event.target === bookingModal) closeBookingModal();
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && bookingModal.style.display === 'block') closeBookingModal();
+});
+
+// -----------------------------
+// EMAILJS BOOKING FORM SUBMISSION
+// -----------------------------
+const EMAILJS_SERVICE_ID  = 'service_zgz1gbq';
+//const EMAILJS_SERVICE_ID  = 'service_gsn1wlu'.trim();
+
+const EMAILJS_TEMPLATE_ID = 'template_1kaopvw';
+
+const EMAILJS_PUBLIC_KEY  = 'TBUf-bmQJr3PPRCLV'; // Your public key
+
+if (bookingForm) {
+    bookingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const templateParams = {
+            from_name: document.getElementById('fullName').value,
+            from_email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            event_date: document.getElementById('eventDate').value,
+            event_type: document.getElementById('eventType').value,
+            guest_count: document.getElementById('guestCount').value,
+            booth_type: document.getElementById('boothType').value,
+            event_address: document.getElementById('eventAddress').value,
+            special_requests: document.getElementById('specialRequests').value,
+            admin_email: "mohsinrehman27@gmail.com" // Admin notification email
+        };
+
+        emailjs.send(
+            "service_zgz1gbq",
+            "template_1kaopvw",
+            templateParams,
+            "TBUf-bmQJr3PPRCLV"
+        )
+        .then(function() {
+            alert(
+                "Thank you " + templateParams.from_name + 
+                "! Your booking request has been sent successfully. Mohsin will contact you shortly."
+            );
+            bookingForm.reset();
+            closeBookingModal();
+        })
+        .catch(function(error) {
+            console.error("EmailJS Error:", error);
+            alert("Oops! Something went wrong. Please try again.");
+        });
+    });
+}
+</script>
+
+
+
+
+   
+
+</body>
+</html>
